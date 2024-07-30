@@ -6,7 +6,15 @@ import { AbBotao, AbCampoTexto, AbModal } from "ds-alurabooks";
 import "./ModalCadastroUsuario.css";
 import imagemPrincipal from "./assets/login.png";
 
-const ModalCadastroUsuario = () => {
+interface PropsModalCadatroUsuario {
+  aberta: boolean;
+  aoFechar: () => void;
+}
+
+const ModalCadastroUsuario = ({
+  aberta,
+  aoFechar,
+}: PropsModalCadatroUsuario) => {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [endereco, setEndereco] = useState("");
@@ -37,6 +45,7 @@ const ModalCadastroUsuario = () => {
         setCep("");
         setSenha("");
         setSenhaConfirmada("");
+        aoFechar();
       })
       .catch(() => {
         alert("OPS! Alguma coisa deu errado!");
@@ -44,11 +53,7 @@ const ModalCadastroUsuario = () => {
   };
 
   return (
-    <AbModal
-      titulo="Cadastrar"
-      aberta={true}
-      aoFechar={() => console.log("fecha ai")}
-    >
+    <AbModal titulo="Cadastrar" aberta={aberta} aoFechar={aoFechar}>
       <div className="corpoModalCadastro">
         <figure>
           <img
